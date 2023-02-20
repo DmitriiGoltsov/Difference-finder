@@ -80,8 +80,8 @@ public class Differ {
             } else if (element.getValue().equals("unchanged")) {
                 str.append("  " + data1.get(element.getKey()) + " " + element.getKey() + "\n");
             } else if (element.getValue().equals("changed")) {
-                str.append("+ " + element.getKey() + ": " + data2.get(element.getKey()) + "\n" +
-                        "- " + element.getKey() + ": " + data1.get(element.getKey()) + "\n");
+                str.append("+ " + element.getKey() + ": " + data2.get(element.getKey()) + "\n"
+                        + "- " + element.getKey() + ": " + data1.get(element.getKey()) + "\n");
             }
         }
         return str.toString();
