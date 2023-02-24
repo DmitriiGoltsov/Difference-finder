@@ -7,11 +7,16 @@ import picocli.CommandLine.Parameters;
 import java.util.concurrent.Callable;
 
 
-@Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 0.1.0",
+@Command(name = "gendiff",
+        mixinStandardHelpOptions = true,
+        version = "gendiff 0.2.0",
         description = "Compares two configuration files and shows a difference.")
+
 public final class App implements Callable<Integer> {
 
-    @Option(names = {"-f", "--format"}, description = "output format [default: stylish]", paramLabel = "format")
+    @Option(names = {"-f", "--format"},
+            description = "output format [default: stylish]",
+            paramLabel = "format")
     private String formatName;
 
     @Parameters(paramLabel = "filepath1",
@@ -26,19 +31,13 @@ public final class App implements Callable<Integer> {
 
     public static void main(String[] args) throws Exception {
 
-//        String result = Differ.generate("app/src/test/resources/file1.json", "app/src/test/resources/file2.json");
-//        System.out.println(result);
-
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
 
-        System.out.println("Hello, world!");
     }
 
     @Override
     public Integer call() throws Exception {
-        // Обработку исключений пока ещё не проходили, потому в простейшем случае тут должен быть
-        // только вызов Differ.generate()
         try {
             String formattedDiff = Differ.generate(filePath1, filePath2, formatName);
             System.out.println(formattedDiff);
