@@ -1,13 +1,36 @@
-PATH1=app/src/test/resources/file1.json
-PATH2=app/src/test/resources/file2.json
+.DEFAULT_GOAL := build-run
 
-run-dist:
-	app/build/install/app/bin/app
+clean:
+	make -C app clean
+
+build:
+	make -C app build
 
 install:
-	app/build/install/app/bin/app $(PATH1) $(PATH2)
+	make -C app install
 
-help:
-	app/build/install/app/bin/app -h
+run-dist:
+	make -C app run-dist
+
+run-distW:
+	make -C app run-distW
+
+run:
+	make -C app run
+
+test:
+	make -C app test
+
+report:
+	make -C app report
+
+lint:
+	make -C app lint
+
+update-deps:
+	make -C app update-deps
 
 
+build-run: build run
+
+.PHONY: build
