@@ -36,6 +36,9 @@ public class Differ {
                 case "unchanged" -> str.append("  " + element.getKey() + ": " + map1.get(element.getKey()) + "\n");
                 case "changed" -> str.append("+ " + element.getKey() + ": " + map2.get(element.getKey()) + "\n"
                         + "- " + element.getKey() + ": " + map1.get(element.getKey()) + "\n");
+                default -> {
+                    return "Something went wrong!";
+                }
             }
         }
 
