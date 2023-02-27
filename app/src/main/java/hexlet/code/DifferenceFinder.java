@@ -13,18 +13,6 @@ public class DifferenceFinder {
         Set<String> keySet = new TreeSet<>(firstMap.keySet());
         keySet.addAll(secondMap.keySet());
 
-//        if (firstMap.isEmpty() && secondMap.isEmpty()) {
-//            return result;
-//        } else if (!firstMap.isEmpty() && secondMap.isEmpty()) {
-//            for (String element : keySet) {
-//                result.put(element, "deleted");
-//            }
-//        } else if (firstMap.isEmpty() && !secondMap.isEmpty()) {
-//            for (String element : keySet) {
-//                result.put(element, "added");
-//            }
-//        }
-
         for (String key : keySet) {
             if (!firstMap.containsKey(key)) {
                 result.put(key, "added");
@@ -36,6 +24,7 @@ public class DifferenceFinder {
                 result.put(key, "changed");
             }
         }
+
         return result;
     }
 }
