@@ -27,14 +27,14 @@ public class DifferTest {
 
     @Test
     public void getDataTest() throws Exception {
-        var actual1 = Differ.getData("src/test/resources/file1.json");
-        var actual2 = Differ.getData("src/test/resources/file2.json");
+        var actual1 = Parser.getData("src/test/resources/file1.json");
+        var actual2 = Parser.getData("src/test/resources/file2.json");
         var expected1 = map1;
         var expected2 = map2;
 
         assertThat(actual1).isEqualTo(expected1);
         assertThat(actual2).isEqualTo(expected2);
-        assertThrows(FileNotFoundException.class, () -> Differ.getData("src/test/resources/file3.json"));
+        assertThrows(FileNotFoundException.class, () -> Parser.getData("src/test/resources/file3.json"));
 
     }
 
@@ -46,10 +46,10 @@ public class DifferTest {
         var expected4 = Map.of("host", "deleted", "timeout", "deleted", "proxy", "deleted",
                 "follow", "deleted");
 
-        var actual1 = Differ.findDifference(emptyMap, emptyMap2);
-        var actual2 = Differ.findDifference(map1, map2);
-        var actual3 = Differ.findDifference(emptyMap, map2);
-        var actual4 = Differ.findDifference(map1, emptyMap);
+        var actual1 = DifferenceFinder.findDifference(emptyMap, emptyMap2);
+        var actual2 = DifferenceFinder.findDifference(map1, map2);
+        var actual3 = DifferenceFinder.findDifference(emptyMap, map2);
+        var actual4 = DifferenceFinder.findDifference(map1, emptyMap);
 
         assertThat(actual1).isEqualTo(emptyMap);
         assertThat(actual2).isEqualTo(expected2);
