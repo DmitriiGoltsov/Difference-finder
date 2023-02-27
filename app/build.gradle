@@ -42,6 +42,8 @@ dependencies {
 
     errorprone 'com.google.errorprone:error_prone_core:2.18.0'
 
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformats-text:2.14.2'
+
 }
 
 compileJava {
