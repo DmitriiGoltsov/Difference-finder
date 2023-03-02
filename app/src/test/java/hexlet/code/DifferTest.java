@@ -35,7 +35,7 @@ public class DifferTest {
 
         assertThat(actual1).isEqualTo(expected1);
         assertThat(actual2).isEqualTo(expected2);
-        assertThrows(FileNotFoundException.class, () -> Parser.getData("src/test/resources/file3.json"));
+        assertThrows(NoSuchFileException.class, () -> Parser.getData("src/test/resources/file3.json"));
 
     }
 
