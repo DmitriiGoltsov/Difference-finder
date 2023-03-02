@@ -12,8 +12,14 @@ install:
 run-dist:
 	make -C app run-dist
 
-run-distW:
-	make -C app run-distW
+run-dist-wrong:
+	make -C app run-dist-wrong
+
+run-dist-yml:
+	make -C app run-dist-yml
+
+run-dist-yml-wrong:
+	make -C app run-dist-yml-wrong
 
 run:
 	make -C app run
