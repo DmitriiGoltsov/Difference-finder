@@ -64,33 +64,46 @@ public class DifferTest {
                 - follow: false
                   host: hexlet.io
                 - proxy: 123.234.53.22
-                + timeout: 20
                 - timeout: 50
+                + timeout: 20
                 + verbose: true
                 """;
 
-//        var expected2 = """
-//                + timeout: 20,
-//                + verbose: true,
-//                + host: hexlet.io
-//                """;
-//
-//        var expected3 = """
-//                - host: hexlet.io,
-//                - timeout: 50,
-//                - proxy: 123.234.53.22
-//                - follow: false
-//                """;
+        var expected2 = """
+                + host: hexlet.io
+                + timeout: 20
+                + verbose: true
+                """;
 
+        var expected3 = """
+                - follow: false
+                - host: hexlet.io
+                - proxy: 123.234.53.22
+                - timeout: 50
+                """;
+
+        var expected4 = """
+                - follow: false
+                  host: hexlet.io
+                - proxy: 123.234.53.22
+                - timeout: 50
+                + timeout: 20
+                + verbose: true
+                """;
+
+        var expected5 = "The files are empty!";
 
         var actual1 = Differ.generate("src/test/resources/file1.json", "src/test/resources/file2.json");
-//        var actual2 = Differ.generate("src/test/resources/file4.json", "src/test/resources/file2.json");
-//        var actual3 = Differ.generate("src/test/resources/file1.json", "src/test/resources/file4.json");
+        var actual2 = Differ.generate("src/test/resources/emptyfile.json", "src/test/resources/file2.json");
+        var actual3 = Differ.generate("src/test/resources/file1.json", "src/test/resources/emptyfile.json");
+        var actual4 = Differ.generate("src/test/resources/file1.yml", "src/test/resources/file2.yml");
+        var actual5 = Differ.generate("src/test/resources/emptyfile.json", "src/test/resources/emptyfile2.json");
 
 
         assertThat(actual1).isEqualTo(expected1);
-//        assertThat(actual2).isEqualTo(expected2);
-//        assertThat(actual3).isEqualTo(expected3);
+        assertThat(actual2).isEqualTo(expected2);
+        assertThat(actual3).isEqualTo(expected3);
+        assertThat(actual4).isEqualTo(expected4);
         assertThrows(FileNotFoundException.class, () -> Differ.generate("src/test/resources/file1.json",
                 "src/test/resources/file3.json"));
     }
