@@ -10,16 +10,22 @@ install:
 	make -C app install
 
 run-dist:
-	make -C app run-dist
+	make -C run-dist
 
 run-dist-wrong:
-	make -C app run-dist-wrong
+	make -C run-dist-wrong
 
 run-dist-yml:
-	make -C app run-dist-yml
+	make -C run-dist-yml
 
 run-dist-yml-wrong:
-	make -C app run-dist-yml-wrong
+	make -C run-dist-yml-wrong
+
+run-dist-nest:
+	make -C app run-dist-nest
+
+run-dist-nest-yml:
+	make -C app run-dist-nest-yml
 
 run:
 	make -C app run

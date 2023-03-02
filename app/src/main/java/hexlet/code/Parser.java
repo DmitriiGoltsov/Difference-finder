@@ -2,19 +2,21 @@ package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
 public class Parser {
 
-    public static Map getData(String pathToContent) throws Exception {
+    public static Map<String, Object> getData(String pathToContent) throws Exception {
 
-        ObjectMapper mapper = chooseFormatOfMapper(pathToContent);
         Path fullPath = getFullPath(pathToContent);
+        String fileExtension = getFileExtension(String.valueOf(fullPath));
+        ObjectMapper mapper = mapperFactory(fileExtension);
+        String contentOfFile = Files.readString(fullPath);
 
-        Map<String, Object> result = mapper.readValue(new File(String.valueOf(fullPath)), Map.class);
+        Map<String, Object> result = mapper.readValue(contentOfFile, Map.class);
 
         return result;
     }
@@ -28,17 +30,23 @@ public class Parser {
         return fullPath;
     }
 
-    private static ObjectMapper chooseFormatOfMapper(String path) {
+    private static ObjectMapper mapperFactory(String extension) throws Exception {
 
-        ObjectMapper result;
-
-        if (path.endsWith(".json")) {
-            result = new ObjectMapper();
-        } else {
-            result = new YAMLMapper();
+        switch (extension) {
+            case ".json" -> {
+                return new ObjectMapper();
+            }
+            case ".yml" -> {
+                return new YAMLMapper();
+            }
+            default -> throw new Exception("Unsupported file extension!");
         }
+    }
 
-        return result;
+    private static String getFileExtension(String path) {
+
+        return path.substring(path.indexOf("."));
+
     }
 
 }

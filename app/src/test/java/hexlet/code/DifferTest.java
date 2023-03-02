@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.FileNotFoundException;
+import java.nio.file.NoSuchFileException;
 import java.util.Collections;
 import java.util.Map;
 
@@ -93,11 +94,38 @@ public class DifferTest {
 
         var expected5 = "The files are empty!";
 
+        var expected6 = """
+                  chars1: [a, b, c]
+                - chars2: [d, e, f]
+                + chars2: false
+                - checked: false
+                + checked: true
+                - default: null
+                + default: [value1, value2]
+                - id: 45
+                + id: null
+                - key1: value1
+                + key2: value2
+                  numbers1: [1, 2, 3, 4]
+                - numbers2: [2, 3, 4, 5]
+                + numbers2: [22, 33, 44, 55]
+                - numbers3: [3, 4, 5]
+                + numbers4: [4, 5, 6]
+                + obj1: {nestedKey=value, isNested=true}
+                - setting1: Some value
+                + setting1: Another value
+                - setting2: 200
+                + setting2: 300
+                - setting3: true
+                + setting3: none
+                """;
+
         var actual1 = Differ.generate("src/test/resources/file1.json", "src/test/resources/file2.json");
         var actual2 = Differ.generate("src/test/resources/emptyfile.json", "src/test/resources/file2.json");
         var actual3 = Differ.generate("src/test/resources/file1.json", "src/test/resources/emptyfile.json");
         var actual4 = Differ.generate("src/test/resources/file1.yml", "src/test/resources/file2.yml");
         var actual5 = Differ.generate("src/test/resources/emptyfile.json", "src/test/resources/emptyfile2.json");
+        var actual6 = Differ.generate("src/test/resources/nested_file1.json", "src/test/resources/nested_file2.json");
 
 
         assertThat(actual1).isEqualTo(expected1);
@@ -105,7 +133,8 @@ public class DifferTest {
         assertThat(actual3).isEqualTo(expected3);
         assertThat(actual4).isEqualTo(expected4);
         assertThat(actual5).isEqualTo(expected5);
-        assertThrows(FileNotFoundException.class, () -> Differ.generate("src/test/resources/file1.json",
+        assertThat(actual6).isEqualTo(expected6);
+        assertThrows(NoSuchFileException.class, () -> Differ.generate("src/test/resources/file1.json",
                 "src/test/resources/file3.json"));
     }
 }

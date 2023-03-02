@@ -19,21 +19,8 @@ public class Differ {
             return "The files are empty!";
         }
 
-        StringBuilder str = new StringBuilder();
+        String result = Formatter.format(mapOfDiff, map1, map2, formatName);
 
-        for (Map.Entry<String, String> element : mapOfDiff.entrySet()) {
-            switch (element.getValue()) {
-                case "deleted" -> str.append("- " + element.getKey() + ": " + map1.get(element.getKey()) + "\n");
-                case "added" -> str.append("+ " + element.getKey() + ": " + map2.get(element.getKey()) + "\n");
-                case "unchanged" -> str.append("  " + element.getKey() + ": " + map1.get(element.getKey()) + "\n");
-                case "changed" -> str.append("- " + element.getKey() + ": " + map1.get(element.getKey()) + "\n"
-                        + "+ " + element.getKey() + ": " + map2.get(element.getKey()) + "\n");
-                default -> {
-                    return "Something went wrong!";
-                }
-            }
-        }
-
-        return str.toString();
+        return result;
     }
 }

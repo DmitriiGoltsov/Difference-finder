@@ -2,6 +2,7 @@ package hexlet.code;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -18,9 +19,9 @@ public class DifferenceFinder {
                 result.put(key, "added");
             } else if (!secondMap.containsKey(key)) {
                 result.put(key, "deleted");
-            } else if (firstMap.get(key).equals(secondMap.get(key))) {
+            } else if (Objects.equals(firstMap.get(key), secondMap.get(key))) {
                 result.put(key, "unchanged");
-            } else if (!firstMap.get(key).equals(secondMap.get(key))) {
+            } else if (!Objects.equals(firstMap.get(key), secondMap.get(key))) {
                 result.put(key, "changed");
             }
         }
