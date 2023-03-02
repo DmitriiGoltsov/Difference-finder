@@ -104,6 +104,7 @@ public class DifferTest {
         assertThat(actual2).isEqualTo(expected2);
         assertThat(actual3).isEqualTo(expected3);
         assertThat(actual4).isEqualTo(expected4);
+        assertThat(actual5).isEqualTo(expected5);
         assertThrows(FileNotFoundException.class, () -> Differ.generate("src/test/resources/file1.json",
                 "src/test/resources/file3.json"));
     }
