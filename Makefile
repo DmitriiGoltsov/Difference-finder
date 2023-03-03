@@ -22,7 +22,7 @@ run-dist-yml-wrong:
 	make -C run-dist-yml-wrong
 
 run-dist-nest:
-	make -C app run-dist-nest
+	make -C run-dist-nest
 
 run-dist-nest-yml:
 	make -C app run-dist-nest-yml

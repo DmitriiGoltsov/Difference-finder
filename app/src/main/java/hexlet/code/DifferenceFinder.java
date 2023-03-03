@@ -11,6 +11,7 @@ public class DifferenceFinder {
     public static Map<String, String> findDifference(Map<String, Object> firstMap, Map<String, Object> secondMap) {
 
         Map<String, String> result = new LinkedHashMap<>();
+
         Set<String> keySet = new TreeSet<>(firstMap.keySet());
         keySet.addAll(secondMap.keySet());
 

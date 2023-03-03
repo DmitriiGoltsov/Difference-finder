@@ -3,8 +3,12 @@ package hexlet.code;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.util.Collections;
 import java.util.Map;
@@ -15,6 +19,9 @@ public class DifferTest {
     private Map<String, Object> map2;
     private final Map<String, Object> emptyMap = Collections.emptyMap();
     private final Map<String, Object> emptyMap2 = Collections.emptyMap();
+
+    private final ObjectMapper mapper1 = new ObjectMapper();
+    private final ObjectMapper mapper2 = new YAMLMapper();
 
     @BeforeEach
     public void beforeEach() {
@@ -27,14 +34,16 @@ public class DifferTest {
 
     @Test
     public void getDataTest() throws Exception {
-        var actual1 = Parser.getData("src/test/resources/file1.json");
-        var actual2 = Parser.getData("src/test/resources/file2.json");
+
+        var content1 = Files.readString(Differ.getFullPath("src/test/resources/file1.json"));
+        var content2 = Files.readString(Differ.getFullPath("src/test/resources/file2.json"));
+        var actual1 = Parser.getData(content1, mapper1);
+        var actual2 = Parser.getData(content2, mapper2);
         var expected1 = map1;
         var expected2 = map2;
 
         assertThat(actual1).isEqualTo(expected1);
         assertThat(actual2).isEqualTo(expected2);
-        assertThrows(NoSuchFileException.class, () -> Parser.getData("src/test/resources/file3.json"));
 
     }
 
