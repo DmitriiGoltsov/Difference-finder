@@ -15,7 +15,7 @@ public class Formatter {
             case "stylish" -> {
                 result = Stylish.stylishFormatter(mapOfDiff, map1, map2);
             }
-             case "plain" -> {
+            case "plain" -> {
                 result = plainFormatter(mapOfDiff, map1, map2);
             }
             default -> {
