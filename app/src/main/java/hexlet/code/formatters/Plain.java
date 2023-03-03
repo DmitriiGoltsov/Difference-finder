@@ -1,6 +1,7 @@
 package hexlet.code.formatters;
 
 import java.lang.reflect.Array;
+import java.util.List;
 import java.util.Map;
 
 
@@ -42,7 +43,7 @@ public class Plain {
 
         if (value instanceof String) {
             return "'" + value + "'";
-        } else if (value instanceof Map || value instanceof Array) {
+        } else if (value instanceof Map || value instanceof Array || value instanceof List) {
             return "[complex value]";
         }
         return String.valueOf(value);
