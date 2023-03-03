@@ -1,29 +1,10 @@
-package hexlet.code;
+package hexlet.code.formatters;
 
 import java.util.Map;
 
-public class Formatter {
+public class Stylish {
 
-    public static String format(Map<String, String> mapOfDiff, Map<String, Object> map1,
-                                Map<String, Object> map2, String style) {
-
-        String result;
-
-        switch (style) {
-            case "stylish" -> {
-                result = stylishFormatter(mapOfDiff, map1, map2);
-            }
-            /* case "plain" -> {
-                result = plainFormatter (mapOfDiff, map1, map2);
-            }*/
-            default -> {
-                return "Unsupported style!";
-            }
-        }
-        return result;
-    }
-
-    private static String stylishFormatter(Map<String, String> mapOfDiff, Map<String,
+    public static String stylishFormatter(Map<String, String> mapOfDiff, Map<String,
             Object> map1, Map<String, Object> map2) {
 
         StringBuilder str = new StringBuilder();

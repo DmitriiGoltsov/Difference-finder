@@ -128,12 +128,30 @@ public class DifferTest {
                 + setting3: none
                 """;
 
+        var expected7 = """
+                Property 'chars2' was updated. From [complex value] to false
+                Property 'checked' was updated. From false to true
+                Property 'default' was updated. From null to [complex value]
+                Property 'id' was updated. From 45 to null
+                Property 'key1' was removed
+                Property 'key2' was added with value: 'value2'
+                Property 'numbers2' was updated. From [complex value] to [complex value]
+                Property 'numbers3' was removed
+                Property 'numbers4' was added with value: [complex value]
+                Property 'obj1' was added with value: [complex value]
+                Property 'setting1' was updated. From 'Some value' to 'Another value'
+                Property 'setting2' was updated. From 200 to 300
+                Property 'setting3' was updated. From true to 'none'
+                """;
+
         var actual1 = Differ.generate("src/test/resources/file1.json", "src/test/resources/file2.json");
         var actual2 = Differ.generate("src/test/resources/emptyfile.json", "src/test/resources/file2.json");
         var actual3 = Differ.generate("src/test/resources/file1.json", "src/test/resources/emptyfile.json");
         var actual4 = Differ.generate("src/test/resources/file1.yml", "src/test/resources/file2.yml");
         var actual5 = Differ.generate("src/test/resources/emptyfile.json", "src/test/resources/emptyfile2.json");
         var actual6 = Differ.generate("src/test/resources/nested_file1.json", "src/test/resources/nested_file2.json");
+        var actual7 = Differ.generate("src/test/resources/nested_file1.json",
+                "src/test/resources/nested_file2.json", "plain");
 
 
         assertThat(actual1).isEqualTo(expected1);
@@ -142,6 +160,7 @@ public class DifferTest {
         assertThat(actual4).isEqualTo(expected4);
         assertThat(actual5).isEqualTo(expected5);
         assertThat(actual6).isEqualTo(expected6);
+        assertThat(actual7).isEqualTo(expected7);
         assertThrows(NoSuchFileException.class, () -> Differ.generate("src/test/resources/file1.json",
                 "src/test/resources/file3.json"));
     }
