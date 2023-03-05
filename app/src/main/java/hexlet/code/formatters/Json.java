@@ -28,7 +28,7 @@ public class Json {
                         + "\"" + element.getValue() + "\"" + "," + "\n");
                 case "unchanged" -> result.append("\"" + element.getKey() + "=" + map1.get(element.getKey())
                         + "\"" + ": " + "\"" + element.getValue() + "\"" + "," + "\n");
-                case "changed" -> result.append("\"" + element.getKey() + "=" + map1.get(element.getKey()) +"\"" + ": "
+                case "changed" -> result.append("\"" + element.getKey() + "=" + map1.get(element.getKey()) + "\"" + ": "
                         + "\"deleted\"" + "," + "\n" + "\"" + element.getKey() + "="
                         + map2.get(element.getKey()) + "\"" + ": " + "\"added\"" + "," + "\n");
                 default -> {
