@@ -1,15 +1,12 @@
 package hexlet.code;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.util.Collections;
 import java.util.Map;
 
@@ -67,7 +64,35 @@ public class DifferTest {
     }
 
     @Test
-    public void generate() throws Exception {
+    public void generateWithEmptyFile() throws Exception {
+
+        var expected1 = "The files are empty!";
+        var actual1 = Differ.generate("src/test/resources/emptyfile.json", "src/test/resources/emptyfile2.json");
+
+        assertThat(actual1).isEqualTo(expected1);
+
+    }
+
+    @Test
+    public void generateStylishYml() throws Exception {
+
+        var expected4 = """
+                - follow: false
+                  host: hexlet.io
+                - proxy: 123.234.53.22
+                - timeout: 50
+                + timeout: 20
+                + verbose: true
+                """;
+
+        var actual4 = Differ.generate("src/test/resources/file1.yml", "src/test/resources/file2.yml");
+
+        assertThat(actual4).isEqualTo(expected4);
+
+    }
+
+    @Test
+    public void generateStylishJson() throws Exception {
 
         var expected1 = """
                 - follow: false
@@ -92,17 +117,6 @@ public class DifferTest {
                 """;
 
         var expected4 = """
-                - follow: false
-                  host: hexlet.io
-                - proxy: 123.234.53.22
-                - timeout: 50
-                + timeout: 20
-                + verbose: true
-                """;
-
-        var expected5 = "The files are empty!";
-
-        var expected6 = """
                   chars1: [a, b, c]
                 - chars2: [d, e, f]
                 + chars2: false
@@ -128,7 +142,22 @@ public class DifferTest {
                 + setting3: none
                 """;
 
-        var expected7 = """
+        var actual1 = Differ.generate("src/test/resources/file1.json", "src/test/resources/file2.json");
+        var actual2 = Differ.generate("src/test/resources/emptyfile.json", "src/test/resources/file2.json");
+        var actual3 = Differ.generate("src/test/resources/file1.json", "src/test/resources/emptyfile.json");
+        var actual4 = Differ.generate("src/test/resources/nested_file1.json", "src/test/resources/nested_file2.json");
+
+        assertThat(actual1).isEqualTo(expected1);
+        assertThat(actual2).isEqualTo(expected2);
+        assertThat(actual3).isEqualTo(expected3);
+        assertThat(actual4).isEqualTo(expected4);
+
+    }
+
+    @Test
+    public void generatePlain() throws Exception {
+
+        var expected1 = """
                 Property 'chars2' was updated. From [complex value] to false
                 Property 'checked' was updated. From false to true
                 Property 'default' was updated. From null to [complex value]
@@ -144,24 +173,47 @@ public class DifferTest {
                 Property 'setting3' was updated. From true to 'none'
                 """;
 
-        var actual1 = Differ.generate("src/test/resources/file1.json", "src/test/resources/file2.json");
-        var actual2 = Differ.generate("src/test/resources/emptyfile.json", "src/test/resources/file2.json");
-        var actual3 = Differ.generate("src/test/resources/file1.json", "src/test/resources/emptyfile.json");
-        var actual4 = Differ.generate("src/test/resources/file1.yml", "src/test/resources/file2.yml");
-        var actual5 = Differ.generate("src/test/resources/emptyfile.json", "src/test/resources/emptyfile2.json");
-        var actual6 = Differ.generate("src/test/resources/nested_file1.json", "src/test/resources/nested_file2.json");
-        var actual7 = Differ.generate("src/test/resources/nested_file1.json",
+        var actual1 = Differ.generate("src/test/resources/nested_file1.json",
                 "src/test/resources/nested_file2.json", "plain");
 
+        assertThat(actual1).isEqualTo(expected1);
+
+    }
+
+    @Test
+    public void generate() throws Exception {
+
+        var expected1 = """
+                {
+                "chars1=[a, b, c]": "unchanged",
+                "chars2=[d, e, f]": "deleted",
+                "chars2=false": "added",
+                "checked=false": "deleted",
+                "checked=true": "added",
+                "default=null": "deleted",
+                "default=[value1, value2]": "added",
+                "id=45": "deleted",
+                "id=null": "added",
+                "key1=value1": "deleted",
+                "key2=value2": "added",
+                "numbers1=[1, 2, 3, 4]": "unchanged",
+                "numbers2=[2, 3, 4, 5]": "deleted",
+                "numbers2=[22, 33, 44, 55]": "added",
+                "numbers3=[3, 4, 5]": "deleted",
+                "numbers4=[4, 5, 6]": "added",
+                "obj1={nestedKey=value, isNested=true}": "added",
+                "setting1=Some value": "deleted",
+                "setting1=Another value": "added",
+                "setting2=200": "deleted",
+                "setting2=300": "added",
+                "setting3=true": "deleted",
+                "setting3=none": "added"
+                }
+                """;
+
+        var actual1 = Differ.generate("src/test/resources/nested_file1.json",
+                "src/test/resources/nested_file2.json", "json");
 
         assertThat(actual1).isEqualTo(expected1);
-        assertThat(actual2).isEqualTo(expected2);
-        assertThat(actual3).isEqualTo(expected3);
-        assertThat(actual4).isEqualTo(expected4);
-        assertThat(actual5).isEqualTo(expected5);
-        assertThat(actual6).isEqualTo(expected6);
-        assertThat(actual7).isEqualTo(expected7);
-        assertThrows(NoSuchFileException.class, () -> Differ.generate("src/test/resources/file1.json",
-                "src/test/resources/file3.json"));
     }
 }

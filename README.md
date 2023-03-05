@@ -1,31 +1,30 @@
-### ***Description:***
-
-This programme is one of my student projects.
+## Description: 
 
 Simple, small and fast terminal utility that can find differences between two configuration files.
 
-Supported formats:
+### *Supported input formats:*
 
 1) .json
 2) .yml
 
-Main features:
+### *Main features:*
 
-The utility finds the differences between two files and shows the result of the comparing in two possible styles:
+The utility finds the differences between two configuration files and shows the result of this comparing in three possible styles:
 
 1) Stylish (default style);
-2) Plain
+2) Plain;
+3) Json (the utility create a String in accordance with .json format);
 
-Examples of both styles you can find below in attached asciinemas. Please, take into account that nested YAML and JSON 
+You can find examples of all supported styles below in the attached asciinemas. Please, take into account that nested YAML and JSON 
 files are also supported by the utility.
 
-Brief instruction:
+### *Brief instruction:*
 
 1) Download the utility to the directory you like;
 2) Open the directory with your terminal and type: "make install";
 3) Wait;
-4) Type ~$ ./build/install/app/bin/app file1 file2, where "file1" is a path to the first configuration file 
-and "file2" is a path to the second one respectively.
+4) Type in directory of the utility: ~$ ./build/install/app/bin/app file1 file2, where "file1" is a path to the first configuration file 
+and "file2" is a path to the second one respectively. You can use Makefile commands as well. 
 
 If you need help, please type ~$ ./build/install/app/bin/app -h for more information. 
 
@@ -40,10 +39,12 @@ If you need help, please type ~$ ./build/install/app/bin/app -h for more informa
 
 ### *Asciinemas of how application works with different tasks:*
 
-[![asciicast](https://asciinema.org/a/gloPn9LiS7Q9OT2ZZU85mXkwj.svg)](https://asciinema.org/a/gloPn9LiS7Q9OT2ZZU85mXkwj)
+[![asciicast](https://asciinema.org/a/vKB3EizHdx1V2nW0EiASNUSOR.svg)](https://asciinema.org/a/vKB3EizHdx1V2nW0EiASNUSOR)
 
 [![asciicast](https://asciinema.org/a/AZwaj2rFbRXUyh8pF4eGGZolj.svg)](https://asciinema.org/a/AZwaj2rFbRXUyh8pF4eGGZolj)
 
 [![asciicast](https://asciinema.org/a/H02jEd0qgDi2djdaBvbOn0JwZ.svg)](https://asciinema.org/a/H02jEd0qgDi2djdaBvbOn0JwZ)
 
 [![asciicast](https://asciinema.org/a/S1HL4O8nde9O27fTc65nMo8jn.svg)](https://asciinema.org/a/S1HL4O8nde9O27fTc65nMo8jn)
+
+[![asciicast](https://asciinema.org/a/pYxrob3jXYXAXVOF52RBnfPuW.svg)](https://asciinema.org/a/pYxrob3jXYXAXVOF52RBnfPuW)

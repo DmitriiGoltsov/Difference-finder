@@ -2,6 +2,7 @@ package hexlet.code.formatters;
 
 import java.util.Map;
 
+import static hexlet.code.formatters.Json.jsonFormatter;
 import static hexlet.code.formatters.Plain.plainFormatter;
 
 public class Formatter {
@@ -17,6 +18,9 @@ public class Formatter {
             }
             case "plain" -> {
                 result = plainFormatter(mapOfDiff, map1, map2);
+            }
+            case "json" -> {
+                result = jsonFormatter(mapOfDiff, map1, map2);
             }
             default -> {
                 return "Unsupported style!";
