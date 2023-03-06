@@ -1,15 +1,11 @@
 plugins {
-    id 'java'
     id 'application'
     id 'checkstyle'
     id 'jacoco'
-    id 'net.ltgt.errorprone' version '3.0.1'
     id "com.github.ben-manes.versions" version "0.46.0"
-    id 'se.patrikerdes.use-latest-versions' version '0.2.18'
-    id 'io.freefair.lombok' version '6.6.2'
 }
 
-group 'org.examplehexlet.code'
+group = 'hexlet.code'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -39,8 +35,6 @@ dependencies {
     implementation 'info.picocli:picocli:4.7.1'
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
-
-    errorprone 'com.google.errorprone:error_prone_core:2.18.0'
 
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.2'
 }

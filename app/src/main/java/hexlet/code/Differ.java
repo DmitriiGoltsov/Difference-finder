@@ -1,7 +1,6 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import hexlet.code.formatters.Formatter;
 
 import java.nio.file.Files;
@@ -20,14 +19,14 @@ public class Differ {
         Path fullPath1 = getFullPath(filePath1);
         Path fullPath2 = getFullPath(filePath2);
 
-        String file1Extension = getFileExtension(String.valueOf(fullPath1));
-        String file2Extension = getFileExtension(String.valueOf(fullPath2));
+        String file1Extension = getDataFormat(String.valueOf(fullPath1));
+        String file2Extension = getDataFormat(String.valueOf(fullPath2));
 
         String contentOfFile1 = Files.readString(fullPath1);
         String contentOfFile2 = Files.readString(fullPath2);
 
-        ObjectMapper mapper1 = mapperFactory(file1Extension);
-        ObjectMapper mapper2 = mapperFactory(file2Extension);
+        ObjectMapper mapper1 = Parser.mapperFactory(file1Extension);
+        ObjectMapper mapper2 = Parser.mapperFactory(file2Extension);
 
         Map<String, Object> map1 = Parser.getData(contentOfFile1, mapper1);
         Map<String, Object> map2 = Parser.getData(contentOfFile2, mapper2);
@@ -52,22 +51,13 @@ public class Differ {
         return fullPath;
     }
 
-    private static ObjectMapper mapperFactory(String extension) throws Exception {
+    private static String getDataFormat(String filePath) {
 
-        switch (extension) {
-            case ".json" -> {
-                return new ObjectMapper();
-            }
-            case ".yml" -> {
-                return new YAMLMapper();
-            }
-            default -> throw new Exception("Unsupported file extension!");
-        }
-    }
+        int index = filePath.lastIndexOf('.');
 
-    private static String getFileExtension(String path) {
-
-        return path.substring(path.indexOf("."));
+        return index > 0
+                ? filePath.substring(index + 1)
+                : "";
 
     }
 }

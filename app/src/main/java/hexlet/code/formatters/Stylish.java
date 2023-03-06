@@ -11,17 +11,21 @@ public class Stylish {
 
         for (Map.Entry<String, String> element : mapOfDiff.entrySet()) {
             switch (element.getValue()) {
-                case "deleted" -> str.append("- " + element.getKey() + ": " + map1.get(element.getKey()) + "\n");
-                case "added" -> str.append("+ " + element.getKey() + ": " + map2.get(element.getKey()) + "\n");
-                case "unchanged" -> str.append("  " + element.getKey() + ": " + map1.get(element.getKey()) + "\n");
-                case "changed" -> str.append("- " + element.getKey() + ": " + map1.get(element.getKey()) + "\n"
-                        + "+ " + element.getKey() + ": " + map2.get(element.getKey()) + "\n");
+                case "deleted" -> str.append("- ").append(element.getKey()).
+                        append(": ").append(map1.get(element.getKey())).append("\n");
+                case "added" -> str.append("+ ").append(element.getKey()).append(": ")
+                        .append(map2.get(element.getKey())).append("\n");
+                case "unchanged" -> str.append("  ").append(element.getKey()).append(": ")
+                        .append(map1.get(element.getKey())).append("\n");
+                case "changed" -> str.append("- ").append(element.getKey()).append(": ")
+                        .append(map1.get(element.getKey())).append("\n").append("+ ")
+                        .append(element.getKey()).append(": ").append(map2.get(element.getKey())).append("\n");
                 default -> {
                     return "Something went wrong!";
                 }
             }
         }
 
-        return str.toString();
+        return str.toString().trim();
     }
 }

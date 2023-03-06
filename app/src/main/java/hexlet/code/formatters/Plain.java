@@ -23,11 +23,13 @@ public class Plain {
             String forTest = element.getValue();
 
             switch (forTest) {
-                case "deleted" -> str.append("Property " + "'" + element.getKey() + "'" + " was removed" + "\n");
-                case "added" -> str.append("Property " + "'" + element.getKey() + "'" + " was added with value: "
-                        + valueResult2 + "\n");
-                case "changed" -> str.append("Property " + "'" + element.getKey() + "'" + " was updated. " + "From "
-                        + valueResult1 + " to " + valueResult2 + "\n");
+                case "deleted" -> str.append("Property " + "'").append(element.getKey())
+                        .append("'").append(" was removed").append("\n");
+                case "added" -> str.append("Property " + "'").append(element.getKey())
+                        .append("'").append(" was added with value: ").append(valueResult2).append("\n");
+                case "changed" -> str.append("Property " + "'").append(element.getKey())
+                        .append("'").append(" was updated. ").append("From ").append(valueResult1)
+                        .append(" to ").append(valueResult2).append("\n");
                 case "unchanged" -> {
                     break;
                 }
@@ -36,7 +38,7 @@ public class Plain {
                 }
             }
         }
-        return str.toString();
+        return str.toString().trim();
     }
 
     private static String prepareValues(Object value) {
@@ -45,6 +47,8 @@ public class Plain {
             return "'" + value + "'";
         } else if (value instanceof Map || value instanceof Array || value instanceof List) {
             return "[complex value]";
+        } else if (value == null) {
+            return "null";
         }
         return String.valueOf(value);
     }
