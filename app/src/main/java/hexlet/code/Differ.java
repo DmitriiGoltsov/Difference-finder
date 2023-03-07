@@ -6,6 +6,7 @@ import hexlet.code.formatters.Formatter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Key;
 import java.util.Map;
 
 public class Differ {
@@ -29,15 +30,15 @@ public class Differ {
         ObjectMapper mapper2 = Parser.mapperFactory(file2Extension);
 
         Map<String, Object> map1 = Parser.getData(contentOfFile1, mapper1);
-        Map<String, Object> map2 = Parser.getData(contentOfFile2, mapper2);
+        Map<String, Object>  map2 = Parser.getData(contentOfFile2, mapper2);
 
-        Map<String, String> mapOfDiff = DifferenceFinder.findDifference(map1, map2);
+        Map<String, KeyStatus> mapOfDiff = DifferenceFinder.findDifference(map1, map2);
 
         if (mapOfDiff.isEmpty()) {
             return "The files are empty!";
         }
 
-        String result = Formatter.format(mapOfDiff, map1, map2, formatName);
+        String result = Formatter.format(mapOfDiff, formatName);
 
         return result;
     }

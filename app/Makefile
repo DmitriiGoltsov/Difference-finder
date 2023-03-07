@@ -23,6 +23,9 @@ run-dist-nest-yml:
 run-dist-plain:
 	./build/install/app/bin/app -f plain $(NEST1) $(NEST2)
 
+run-dist-json:
+	./build/install/app/bin/app -f json $(NEST1) $(NEST2)
+
 run:
 	./gradlew run
 

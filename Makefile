@@ -18,6 +18,9 @@ run-dist-nest-yml:
 run-dist-plain:
 	make -C app run-dist-plain
 
+run-dist-json:
+	make -C app run-dist-json
+
 run:
 	make -C app run
 

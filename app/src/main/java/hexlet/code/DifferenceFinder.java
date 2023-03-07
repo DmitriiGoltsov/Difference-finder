@@ -8,22 +8,22 @@ import java.util.TreeSet;
 
 public class DifferenceFinder {
 
-    public static Map<String, String> findDifference(Map<String, Object> firstMap, Map<String, Object> secondMap) {
+    public static Map<String, KeyStatus> findDifference(Map<String, Object> firstMap, Map<String, Object> secondMap) {
 
-        Map<String, String> result = new LinkedHashMap<>();
+        Map<String, KeyStatus> result = new LinkedHashMap<>();
 
         Set<String> keySet = new TreeSet<>(firstMap.keySet());
         keySet.addAll(secondMap.keySet());
 
         for (String key : keySet) {
             if (!firstMap.containsKey(key)) {
-                result.put(key, "added");
+                result.put(key, new KeyStatus("added", secondMap.get(key)));
             } else if (!secondMap.containsKey(key)) {
-                result.put(key, "deleted");
+                result.put(key, new KeyStatus("deleted", firstMap.get(key)));
             } else if (Objects.equals(firstMap.get(key), secondMap.get(key))) {
-                result.put(key, "unchanged");
+                result.put(key, new KeyStatus("unchanged", firstMap.get(key)));
             } else if (!Objects.equals(firstMap.get(key), secondMap.get(key))) {
-                result.put(key, "changed");
+                result.put(key, new KeyStatus("changed", firstMap.get(key), secondMap.get(key)));
             }
         }
 

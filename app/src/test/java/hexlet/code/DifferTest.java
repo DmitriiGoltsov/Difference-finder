@@ -3,6 +3,10 @@ package hexlet.code;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.skyscreamer.jsonassert.JSONAssert;
+import static org.assertj.core.api.Assertions.assertThat;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,20 +17,17 @@ public class DifferTest {
     private static String resultPlain;
     private static String resultStylish;
 
-    private static String jsonFile1Path;
-    private static String jsonFile2Path;
-    private static String ymlFile1Path;
-    private static String ymlFile2Path;
+    private static final String jsonFile1Path = "src/test/resources/fixtures/nested_file1.json";;
+    private static final String jsonFile2Path = "src/test/resources/fixtures/nested_file2.json";
+    private static final String ymlFile1Path = "src/test/resources/fixtures/nested_file1.yml";
+    private static final String ymlFile2Path = "src/test/resources/fixtures/nested_file2.yml";
 
     @BeforeAll
     public static void beforeAll() throws Exception {
+
         resultJson = readFixture("result_json.json");
         resultPlain = readFixture("result_plain.txt");
         resultStylish = readFixture("result_stylish.txt");
-        jsonFile1Path = "src/test/resources/fixtures/nested_file1.json";
-        jsonFile2Path = "src/test/resources/fixtures/nested_file2.json";
-        ymlFile1Path = "src/test/resources/fixtures/nested_file1.yml";
-        ymlFile2Path = "src/test/resources/fixtures/nested_file2.yml";
 
     }
 
@@ -39,6 +40,25 @@ public class DifferTest {
         Path filePath = getFixturePath(fileName);
         return Files.readString(filePath).trim();
     }
+
+//    @ParameterizedTest
+//    @ValueSource(strings = {"json", "yml"})
+//    public void generateTest(String format) throws Exception {
+//        String filePath1 = getFixturePath("nested_file1." + format).toString();
+//        String filePath2 = getFixturePath("nested_file2." + format).toString();
+//
+//        assertThat(Differ.generate(filePath1, filePath2))
+//                .isEqualTo(resultStylish);
+//
+//        assertThat(Differ.generate(filePath1, filePath2, "stylish"))
+//                .isEqualTo(resultStylish);
+//
+//        assertThat(Differ.generate(filePath1, filePath2, "plain"))
+//                .isEqualTo(resultPlain);
+//
+//        String actualJson = Differ.generate(filePath1, filePath2, "json");
+//        JSONAssert.assertEquals(resultJson, actualJson, false);
+//    }
 
     @Test
     public void generateJSON() throws Exception {
@@ -77,5 +97,4 @@ public class DifferTest {
         Assertions.assertEquals(actual4, expected3);
 
     }
-
 }

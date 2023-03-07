@@ -1,27 +1,30 @@
 package hexlet.code.formatters;
 
+import hexlet.code.KeyStatus;
+
 import java.util.Map;
 
 public class Stylish {
 
-    public static String stylishFormatter(Map<String, String> mapOfDiff, Map<String,
-            Object> map1, Map<String, Object> map2) {
+    public static String stylishFormatter(Map<String, KeyStatus> mapOfDiff) {
 
         StringBuilder str = new StringBuilder();
 
-        for (Map.Entry<String, String> element : mapOfDiff.entrySet()) {
-            switch (element.getValue()) {
-                case "deleted" -> str.append("- ").append(element.getKey()).
-                        append(": ").append(map1.get(element.getKey())).append("\n");
-                case "added" -> str.append("+ ").append(element.getKey()).append(": ")
-                        .append(map2.get(element.getKey())).append("\n");
-                case "unchanged" -> str.append("  ").append(element.getKey()).append(": ")
-                        .append(map1.get(element.getKey())).append("\n");
-                case "changed" -> str.append("- ").append(element.getKey()).append(": ")
-                        .append(map1.get(element.getKey())).append("\n").append("+ ")
-                        .append(element.getKey()).append(": ").append(map2.get(element.getKey())).append("\n");
+        for (Map.Entry<String, KeyStatus> element : mapOfDiff.entrySet()) {
+
+            String status = element.getValue().getStatus();
+            String key = element.getKey();
+            var value1 = element.getValue().getValue1();
+            var value2 = element.getValue().getValue2();
+
+            switch (status) {
+                case "deleted" -> str.append("- ").append(key).append(": ").append(value1).append("\n");
+                case "added" -> str.append("+ ").append(key).append(": ").append(value2).append("\n");
+                case "unchanged" -> str.append("  ").append(key).append(": ").append(value1).append("\n");
+                case "changed" -> str.append("- ").append(key).append(": ").append(value1).
+                        append("\n").append("+ ").append(key).append(": ").append(value2).append("\n");
                 default -> {
-                    return "Something went wrong!";
+                    return "Something went wrong for input: " + element.getValue();
                 }
             }
         }
