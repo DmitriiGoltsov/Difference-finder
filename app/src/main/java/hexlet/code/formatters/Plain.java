@@ -1,11 +1,9 @@
 package hexlet.code.formatters;
 
 import hexlet.code.KeyStatus;
-
 import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Map;
-
 
 public class Plain {
 
@@ -30,7 +28,7 @@ public class Plain {
                         .append(valueResult2).append("\n");
                 case "changed" -> str.append("Property " + "'").append(key).append("'").append(" was updated. ")
                         .append("From ").append(valueResult1).append(" to ").append(valueResult2).append("\n");
-                case "unchanged" -> {}
+                case "unchanged" -> { }
                 default -> {
                     return "Something went wrong for input: " + element.getValue();
                 }

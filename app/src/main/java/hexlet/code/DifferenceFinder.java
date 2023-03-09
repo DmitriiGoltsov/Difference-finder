@@ -17,7 +17,7 @@ public class DifferenceFinder {
 
         for (String key : keySet) {
             if (!firstMap.containsKey(key)) {
-                result.put(key, new KeyStatus("added", secondMap.get(key)));
+                result.put(key, new KeyStatus("added", null, secondMap.get(key)));
             } else if (!secondMap.containsKey(key)) {
                 result.put(key, new KeyStatus("deleted", firstMap.get(key)));
             } else if (Objects.equals(firstMap.get(key), secondMap.get(key))) {

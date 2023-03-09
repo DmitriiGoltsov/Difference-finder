@@ -1,12 +1,11 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import hexlet.code.formatters.Formatter;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.Key;
 import java.util.Map;
 
 public class Differ {
@@ -26,11 +25,11 @@ public class Differ {
         String contentOfFile1 = Files.readString(fullPath1);
         String contentOfFile2 = Files.readString(fullPath2);
 
-        ObjectMapper mapper1 = Parser.mapperFactory(file1Extension);
-        ObjectMapper mapper2 = Parser.mapperFactory(file2Extension);
+        ObjectMapper mapper1 = mapperFactory(file1Extension);
+        ObjectMapper mapper2 = mapperFactory(file2Extension);
 
         Map<String, Object> map1 = Parser.getData(contentOfFile1, mapper1);
-        Map<String, Object>  map2 = Parser.getData(contentOfFile2, mapper2);
+        Map<String, Object> map2 = Parser.getData(contentOfFile2, mapper2);
 
         Map<String, KeyStatus> mapOfDiff = DifferenceFinder.findDifference(map1, map2);
 
@@ -45,9 +44,7 @@ public class Differ {
 
     public static Path getFullPath(String path) {
 
-        String loweredPath = path.toLowerCase();
-
-        Path fullPath = Paths.get(loweredPath).toAbsolutePath().normalize();
+        Path fullPath = Paths.get(path).toAbsolutePath().normalize();
 
         return fullPath;
     }
@@ -60,5 +57,18 @@ public class Differ {
                 ? filePath.substring(index + 1)
                 : "";
 
+    }
+
+    private static ObjectMapper mapperFactory(String dataFormat) throws Exception {
+
+        switch (dataFormat) {
+            case "json" -> {
+                return new ObjectMapper();
+            }
+            case "yml", "yaml" -> {
+                return new YAMLMapper();
+            }
+            default -> throw new Exception("Unsupported data format - " + dataFormat);
+        }
     }
 }
