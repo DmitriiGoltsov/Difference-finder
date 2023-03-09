@@ -10,6 +10,8 @@ public class Stylish {
 
         StringBuilder str = new StringBuilder();
 
+        str.append("\n");
+
         for (Map.Entry<String, KeyStatus> element : mapOfDiff.entrySet()) {
 
             String status = element.getValue().getStatus();
@@ -29,6 +31,6 @@ public class Stylish {
             }
         }
 
-        return str.toString().trim();
+        return str.toString();
     }
 }
