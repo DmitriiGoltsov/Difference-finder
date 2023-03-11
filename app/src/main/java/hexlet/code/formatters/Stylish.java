@@ -32,7 +32,7 @@ public class Stylish {
             }
         }
 
-        str.append("}");
+        str.append("  }");
         return str.toString();
     }
 }
