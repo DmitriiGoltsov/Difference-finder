@@ -25,11 +25,8 @@ public class Differ {
         String contentOfFile1 = Files.readString(fullPath1);
         String contentOfFile2 = Files.readString(fullPath2);
 
-        ObjectMapper mapper1 = mapperFactory(file1Extension);
-        ObjectMapper mapper2 = mapperFactory(file2Extension);
-
-        Map<String, Object> map1 = Parser.getData(contentOfFile1, mapper1);
-        Map<String, Object> map2 = Parser.getData(contentOfFile2, mapper2);
+        Map<String, Object> map1 = Parser.getData(contentOfFile1, file1Extension);
+        Map<String, Object> map2 = Parser.getData(contentOfFile2, file2Extension);
 
         Map<String, KeyStatus> mapOfDiff = DifferenceFinder.findDifference(map1, map2);
 
@@ -57,18 +54,5 @@ public class Differ {
                 ? filePath.substring(index + 1)
                 : "";
 
-    }
-
-    private static ObjectMapper mapperFactory(String dataFormat) throws Exception {
-
-        switch (dataFormat) {
-            case "json" -> {
-                return new ObjectMapper();
-            }
-            case "yml", "yaml" -> {
-                return new YAMLMapper();
-            }
-            default -> throw new Exception("Unsupported data format - " + dataFormat);
-        }
     }
 }
