@@ -11,7 +11,6 @@ public class Stylish {
         StringBuilder str = new StringBuilder();
 
         str.append("{");
-        str.append("\n");
 
         for (Map.Entry<String, KeyStatus> element : mapOfDiff.entrySet()) {
 
@@ -32,7 +31,7 @@ public class Stylish {
             }
         }
 
-        str.append("  }");
+        str.append("}");
         return str.toString();
     }
 }
