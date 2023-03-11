@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DifferTest {
+public final class DifferTest {
 
     private static String resultJson;
     private static String resultPlain;
