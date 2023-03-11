@@ -17,15 +17,15 @@ public class KeyStatus {
         this.value1 = value;
     }
 
-    public String getStatus() {
+    public final String getStatus() {
         return status;
     }
 
-    public Object getValue1() {
+    public final Object getValue1() {
         return value1;
     }
 
-    public Object getValue2() {
+    public final Object getValue2() {
         return value2;
     }
 
