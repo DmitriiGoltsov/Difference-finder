@@ -1,6 +1,6 @@
 ## Description: 
 
-Simple, small and fast terminal utility that can find differences between two configuration files.
+Simple, small and fast CL utility that can find differences between two configuration files.
 
 ### *Supported input formats:*
 
